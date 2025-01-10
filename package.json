@@ -44,7 +44,11 @@
         "custom": {
             "navigation_layout": {
                 "type": "select",
-                "options": ["Logo on the left", "Logo in the middle", "Stacked"],
+                "options": [
+                    "Logo on the left",
+                    "Logo in the middle",
+                    "Stacked"
+                ],
                 "default": "Logo on the left"
             },
             "title_font": {
@@ -117,7 +121,8 @@
     "scripts": {
         "dev": "gulp",
         "test": "gscan .",
-        "zip": "gulp zip"
+        "zip": "gulp zip",
+        "build": "gulp zip"
     },
     "devDependencies": {
         "@tryghost/shared-theme-assets": "2.5.0",
