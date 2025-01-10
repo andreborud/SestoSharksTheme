@@ -1,0 +1,43 @@
+name: Deploy Ghost Theme
+
+on:
+  push:
+    branches: [ "main" ]  # or whichever branch you use
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      # If you have a build process for your theme (e.g., npm install, gulp build), do that here
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build theme
+        run: npm run build  # or whatever your build script is
+
+      - name: Zip theme
+        run: |
+          zip -r theme.zip ./* \
+            -x '*.git*' \
+            -x '*.github*' \
+            -x 'node_modules/*' \
+            -x 'dist/*' \
+            -x 'package-lock.json'
+
+      - name: Deploy theme to Ghost
+        run: |
+          curl -X POST ${GHOST_ADMIN_URL}/ghost/api/admin/themes/upload/ \
+            -H "Authorization: Ghost ${GHOST_ADMIN_KEY}" \
+            -F "file=@theme.zip"
+        env:
+          GHOST_ADMIN_URL: ${{ secrets.GHOST_ADMIN_URL }}
+          GHOST_ADMIN_KEY: ${{ secrets.GHOST_ADMIN_KEY }}
