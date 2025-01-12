@@ -16,3 +16,25 @@
 .page-template .site-content {
     padding-block: 0;
 }
+
+.sponsor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.sponsor h6 {
+    text-align: center;
+}
+
+.sponsor list {
+    padding: 2.5rem 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.sponsor list img {
+    height: 120px;
+}
